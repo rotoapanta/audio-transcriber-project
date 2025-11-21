@@ -20,9 +20,9 @@ def main():
     )
     parser.add_argument(
         "-m", "--model",
-        default="medium",
+        default="base",
         type=str,
-        help="Whisper model to use (e.g., tiny, base, small, medium, large-v1, large-v2, large-v3)."
+        help="Whisper model to use (e.g., tiny, base, small, medium, large-v1, large-v2, large-v3). Default: base."
     )
     parser.add_argument(
         "-l", "--language",
@@ -35,6 +35,12 @@ def main():
         default=None,
         type=str,
         help="Directory to save the transcription file. Defaults to 'transcripciones/YYYY-MM-DD'."
+    )
+    parser.add_argument(
+        "--device",
+        default="cuda" if torch.cuda.is_available() else "cpu",
+        type=str,
+        help="Device to use for computation (e.g., 'cpu', 'cuda'). Defaults to 'cuda' if available, otherwise 'cpu'."
     )
 
     args = parser.parse_args()
@@ -68,16 +74,17 @@ def main():
     start_time = time.time()
 
     try:
-        # Check for GPU
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        print(f"Running on device: {device}")
+        print(f"Running on device: {args.device}")
 
-        model = whisper.load_model(args.model, device=device)
+        model = whisper.load_model(args.model, device=args.device)
         
+        # fp16 is only available for CUDA devices
+        use_fp16 = (args.device == "cuda")
+
         result = model.transcribe(
             str(input_path),
             language=args.language,
-            fp16=torch.cuda.is_available() # fp16 is only for CUDA
+            fp16=use_fp16
         )
 
         # --- Save Output ---

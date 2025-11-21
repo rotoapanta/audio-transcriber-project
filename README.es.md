@@ -76,17 +76,27 @@ Para transcribir un archivo usando Docker, necesitas montar tus directorios loca
 -   `-v /ruta/a/tus/audios:/app/audio`: Monta tu directorio local de audios en `/app/audio` dentro del contenedor.
 -   `-v /ruta/a/tus/transcripciones:/app/transcripciones`: Monta tu directorio local de transcripciones en `/app/transcripciones` dentro del contenedor.
 
+#### Limitación de Recursos (Importante para evitar que el sistema se congele)
+
+Es muy recomendable limitar los recursos que Docker puede usar, especialmente con los modelos más grandes.
+
+-   `--cpus="1.5"`: Limita el contenedor a usar como máximo 1.5 núcleos de CPU.
+-   `--memory="4g"`: Limita el contenedor a usar como máximo 4GB de RAM.
+
 ```bash
 docker run --rm \
+  --cpus="1.5" \
+  --memory="4g" \
   -v $(pwd)/archivos_de_audio:/app/audio \
   -v $(pwd)/transcripciones:/app/transcriptions \
   whisper-transcriber \
   -i /app/audio/tu_audio.mp3 \
-  -m large-v3 \
-  -l es
+  -m base \
+  -l es \
+  --device cpu
 ```
 
-*Nota: Reemplaza `$(pwd)/archivos_de_audio` y `$(pwd)/transcripciones` con las rutas reales a tus directorios de audio y salida.*
+*Nota: Ajusta los valores de `--cpus` y `--memory` según el hardware de tu sistema. Reemplaza `$(pwd)/archivos_de_audio` y `$(pwd)/transcripciones` con las rutas reales a tus directorios de audio y salida.*
 
 ### Con Python
 
@@ -101,9 +111,10 @@ python transcriber.py -i <archivo_audio> [-m <modelo>] [-l <idioma>] [-o <direct
 ### Opciones
 
 -   `-i, --input <archivo_audio>`: **(Obligatorio)** La ruta al archivo de audio o video a transcribir.
--   `-m, --model <modelo>`: **(Opcional)** El modelo de Whisper a utilizar. Por defecto es `medium`.
+-   `-m, --model <modelo>`: **(Opcional)** El modelo de Whisper a utilizar. Por defecto es `base`.
 -   `-l, --language <idioma>`: **(Opcional)** El código de dos letras para el idioma del audio. Por defecto es `es` (español).
 -   `-o, --output_dir <directorio_salida>`: **(Opcional)** Directorio para guardar la transcripción. Por defecto es `transcripciones/YYYY-MM-DD`.
+-   `--device <dispositivo>`: **(Opcional)** Dispositivo a usar para el cálculo (ej. 'cpu', 'cuda'). Por defecto es 'cuda' si está disponible, si no 'cpu'.
 
 ### Ejemplos
 

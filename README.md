@@ -76,17 +76,27 @@ To transcribe a file using Docker, you need to mount your local directories for 
 -   `-v /path/to/your/audio:/app/audio`: Mounts your local audio directory to `/app/audio` inside the container.
 -   `-v /path/to/your/transcriptions:/app/transcriptions`: Mounts your local transcriptions directory to `/app/transcriptions` inside the container.
 
+#### Resource Limiting (Important for preventing system freezes)
+
+It is highly recommended to limit the resources Docker can use, especially with larger models.
+
+-   `--cpus="1.5"`: Limits the container to use at most 1.5 CPU cores.
+-   `--memory="4g"`: Limits the container to use at most 4GB of RAM.
+
 ```bash
 docker run --rm \
+  --cpus="1.5" \
+  --memory="4g" \
   -v $(pwd)/audio_files:/app/audio \
   -v $(pwd)/transcripciones:/app/transcriptions \
   whisper-transcriber \
   -i /app/audio/your_audio.mp3 \
-  -m large-v3 \
-  -l en
+  -m base \
+  -l en \
+  --device cpu
 ```
 
-*Note: Replace `$(pwd)/audio_files` and `$(pwd)/transcripciones` with the actual paths to your audio and output directories.*
+*Note: Adjust the `--cpus` and `--memory` values based on your system's hardware. Replace `$(pwd)/audio_files` and `$(pwd)/transcripciones` with the actual paths to your audio and output directories.*
 
 ### With Python
 
@@ -101,9 +111,10 @@ python transcriber.py -i <audio_file> [-m <model>] [-l <language>] [-o <output_d
 ### Options
 
 -   `-i, --input <audio_file>`: **(Required)** The path to the audio or video file to be transcribed.
--   `-m, --model <model>`: **(Optional)** The Whisper model to use. Defaults to `medium`.
+-   `-m, --model <model>`: **(Optional)** The Whisper model to use. Defaults to `base`.
 -   `-l, --language <language>`: **(Optional)** The two-letter code for the audio language. Defaults to `es` (Spanish).
 -   `-o, --output_dir <output_dir>`: **(Optional)** Directory to save the transcription. Defaults to `transcripciones/YYYY-MM-DD`.
+-   `--device <device>`: **(Optional)** Device to use for computation (e.g., 'cpu', 'cuda'). Defaults to 'cuda' if available, otherwise 'cpu'.
 
 ### Examples
 
