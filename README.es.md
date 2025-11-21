@@ -7,7 +7,7 @@
     <a href="https://github.com/rotoapanta/audio-transcriber-project/issues"><img src="https://img.shields.io/github/issues/rotoapanta/audio-transcriber-project" alt="GitHub issues"></a>
     <a href="https://github.com/rotoapanta/audio-transcriber-project"><img src="https://img.shields.io/github/repo-size/rotoapanta/audio-transcriber-project" alt="GitHub repo size"></a>
     <a href="https://github.com/rotoapanta/audio-transcriber-project/commits"><img src="https://img.shields.io/github/last-commit/rotoapanta/audio-transcriber-project" alt="GitHub last commit"></a>
-    <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-No-brightgreen" alt="Docker"></a>
+    <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-Sí-brightgreen" alt="Docker"></a>
     <a href="https://www.linux.org/"><img src="https://img.shields.io/badge/Linux-Compatible-brightgreen" alt="Linux"></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/Licencia-MIT-blue.svg" alt="Licencia: MIT"></a>
     <a href="https://www.linkedin.com/in/roberto-carlos-toapanta-g/"><img src="https://img.shields.io/badge/Autor-Roberto%20Toapanta-brightgreen" alt="Autor"></a>
@@ -35,9 +35,28 @@ Un script de Python que automatiza el proceso de transcribir archivos de audio a
 
 ## 🔧 Instalación
 
-1.  **Clona el repositorio (cuando esté en GitHub) o descarga los archivos.**
+Hay dos formas de configurar este proyecto: usando Docker (recomendado por su portabilidad) o configurando un entorno de Python local.
 
-2.  **Crea y activa un entorno virtual (recomendado):**
+### Con Docker (Recomendado)
+
+1.  **Instala [Docker](https://docs.docker.com/get-docker/).**
+
+2.  **Clona el repositorio:**
+    ```bash
+    git clone https://github.com/rotoapanta/audio-transcriber-project.git
+    cd audio-transcriber-project
+    ```
+
+3.  **Construye la imagen de Docker:**
+    ```bash
+    docker build -t whisper-transcriber .
+    ```
+
+### Entorno Local de Python
+
+1.  **Clona el repositorio y navega hacia él.**
+
+2.  **Crea y activa un entorno virtual:**
     ```bash
     python3 -m venv whisper_env
     source whisper_env/bin/activate
@@ -49,6 +68,27 @@ Un script de Python que automatiza el proceso de transcribir archivos de audio a
     ```
 
 ## Uso
+
+### Con Docker
+
+Para transcribir un archivo usando Docker, necesitas montar tus directorios locales de entrada y salida en el contenedor.
+
+-   `-v /ruta/a/tus/audios:/app/audio`: Monta tu directorio local de audios en `/app/audio` dentro del contenedor.
+-   `-v /ruta/a/tus/transcripciones:/app/transcripciones`: Monta tu directorio local de transcripciones en `/app/transcripciones` dentro del contenedor.
+
+```bash
+docker run --rm \
+  -v $(pwd)/archivos_de_audio:/app/audio \
+  -v $(pwd)/transcripciones:/app/transcriptions \
+  whisper-transcriber \
+  -i /app/audio/tu_audio.mp3 \
+  -m large-v3 \
+  -l es
+```
+
+*Nota: Reemplaza `$(pwd)/archivos_de_audio` y `$(pwd)/transcripciones` con las rutas reales a tus directorios de audio y salida.*
+
+### Con Python
 
 Ejecuta el script desde la línea de comandos usando flags para especificar el archivo de entrada y otras opciones.
 
@@ -90,6 +130,7 @@ python transcriber.py -i <archivo_audio> [-m <modelo>] [-l <idioma>] [-o <direct
 ```
 .
 ├── .gitignore          # Archivos a ignorar por Git
+├── Dockerfile          # Instrucciones para construir la imagen de Docker
 ├── LICENSE             # Licencia del Proyecto
 ├── README.md           # Este archivo (Inglés)
 ├── README.es.md        # Readme en Español
