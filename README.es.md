@@ -28,36 +28,31 @@ Un script de Python que automatiza el proceso de transcribir archivos de audio a
 -   **Flexible:** Permite especificar el archivo de audio, el modelo de Whisper y el idioma.
 -   **Organizado:** Guarda las transcripciones en carpetas con la fecha del día.
 
-## 🚀 Prerrequisitos
+## 🛠️ Requisitos del sistema
 
--   Python 3.x
--   `pip`
+-   [Docker](https://www.docker.com/)
 
-## 🔧 Instalación
+## 🚀 Despliegue
 
-1.  **Instala [Docker](https://docs.docker.com/get-docker/).**
+El proceso de despliegue se realiza en dos pasos principales: construir la imagen de Docker y ejecutar el contenedor.
 
-2.  **Clona el repositorio:**
-    ```bash
-    git clone https://github.com/rotoapanta/audio-transcriber-project.git
-    cd audio-transcriber-project
-    ```
+### 1. Construir la Imagen de Docker
 
-3.  **Construye la imagen de Docker:**
-    Este comando empaqueta la aplicación en una imagen portable.
-    ```bash
-    docker build -t whisper-transcriber .
-    ```
+Este comando empaqueta la aplicación y todas sus dependencias en una imagen portable llamada `whisper-transcriber`.
 
-## Uso
+```bash
+docker build -t whisper-transcriber .
+```
 
-Para realizar una transcripción, usa el comando `docker run`. Debes mapear el directorio de tu proyecto al contenedor para que pueda acceder a tus archivos de audio.
+### 2. Ejecutar la Transcripción
 
--   `-v $(pwd):/app`: Esto mapea tu directorio de proyecto actual a la carpeta `/app` dentro del contenedor.
+Para realizar una transcripción, usa el comando `docker run`. Esto creará un contenedor temporal a partir de la imagen para procesar tu archivo de audio.
 
-#### Limitación de Recursos (Importante)
+-   `-v "$(pwd):/app"`: Esta es la parte más importante. Mapea tu directorio de proyecto actual (donde están tus archivos de audio) a la carpeta `/app` dentro del contenedor, permitiéndole acceder a ellos.
 
-Para evitar que tu computador se congele, es crucial limitar los recursos que Docker puede usar.
+#### Limitación de Recursos (Crucial)
+
+Para evitar que tu computador se congele, debes limitar los recursos que el contenedor puede usar.
 
 -   `--cpus="1.5"`: Limita el contenedor a 1.5 núcleos de CPU.
 -   `--memory="4g"`: Limita el contenedor a 4GB de RAM.
@@ -104,7 +99,7 @@ docker run --rm \
 4.  **Transcribe:** Ejecuta la transcripción.
 5.  **Guarda el Resultado:** El archivo `.txt` resultante se guarda en el directorio de salida.
 
-## 📂 Estructura del Proyecto
+## 🗂️ Estructura del proyecto
 
 ```
 .

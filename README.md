@@ -28,36 +28,31 @@ A Python script that automates the process of transcribing audio files to text u
 -   **Flexible:** Allows specifying the audio file, Whisper model, and language.
 -   **Organized:** Saves transcriptions into date-stamped folders.
 
-## 🚀 Prerequisites
+## 🛠️ System requirements
 
--   Python 3.x
--   `pip`
+-   [Docker](https://www.docker.com/)
 
-## 🔧 Installation
+## 🚀 Deployment
 
-1.  **Install [Docker](https://docs.docker.com/get-docker/).**
+The deployment process is done in two main steps: building the Docker image and running the container.
 
-2.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/rotoapanta/audio-transcriber-project.git
-    cd audio-transcriber-project
-    ```
+### 1. Build the Docker Image
 
-3.  **Build the Docker image:**
-    This command packages the application into a portable image.
-    ```bash
-    docker build -t whisper-transcriber .
-    ```
+This command packages the application and all its dependencies into a portable image named `whisper-transcriber`.
 
-## Usage
+```bash
+docker build -t whisper-transcriber .
+```
 
-To run a transcription, use the `docker run` command. You must map your project directory into the container so it can access your audio files.
+### 2. Run the Transcription
 
--   `-v $(pwd):/app`: This maps your current project directory to the `/app` directory inside the container.
+To run a transcription, use the `docker run` command. This will create a temporary container from the image to process your audio file.
 
-#### Resource Limiting (Important)
+-   `-v "$(pwd):/app"`: This is the most important part. It maps your current project directory (where your audio files are) to the `/app` directory inside the container, allowing it to access them.
 
-To prevent your computer from freezing, it is crucial to limit the resources Docker can use.
+#### Resource Limiting (Crucial)
+
+To prevent your computer from freezing, you must limit the resources the container can use.
 
 -   `--cpus="1.5"`: Limits the container to 1.5 CPU cores.
 -   `--memory="4g"`: Limits the container to 4GB of RAM.
@@ -104,7 +99,7 @@ docker run --rm \
 4.  **Transcribes:** Runs the transcription.
 5.  **Saves Result:** The resulting `.txt` file is saved in the output directory.
 
-## 📂 Project Structure
+## 🗂️ Project structure
 
 ```
 .
