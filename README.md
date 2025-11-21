@@ -46,8 +46,6 @@ audio-transcriber-project/
 ├── reunion_micro.mp4
 ├── transcriber.py
 ├── transcripciones/
-│   ├── 2025-11-19/
-│   ├── 2025-11-20/
 │   └── 2025-11-21/
 ```
 
