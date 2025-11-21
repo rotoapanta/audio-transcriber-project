@@ -35,15 +35,26 @@ A Python script that automates the process of transcribing audio files to text u
 ## 🗂️ Project structure
 
 ```
-.
-├── .gitignore          # Files to be ignored by Git
-├── Dockerfile          # Instructions to build the Docker image
-├── LICENSE             # Project License
-├── README.md           # This file (English)
-├── README.es.md        # Spanish Readme
-├── requirements.txt    # Python dependencies
-├── transcriber.py      # The main transcription script
-└── transcripciones/    # Directory where transcriptions are saved
+audio-transcriber-project/
+├── .gitignore
+├── Dockerfile
+├── LICENSE
+├── README.es.md
+├── README.md
+├── requirements.txt
+├── reunion_micro (Copiar).tsv
+├── reunion_micro.mp4
+├── transcriber.py
+├── transcripciones/
+│   ├── 2025-11-19/
+│   ├── 2025-11-20/
+│   └── 2025-11-21/
+└── whisper_env/
+    ├── bin/
+    ├── include/
+    ├── lib/
+    ├── pyvenv.cfg
+    └── share/
 ```
 
 ## 🚀 Deployment
@@ -113,3 +124,47 @@ docker run --rm \
 4.  **Transcribes:** Runs the transcription.
 5.  **Saves Result:** The resulting `.txt` file is saved in the output directory.
 
+## 💬 Feedback
+
+For comments or suggestions: robertocarlos.toapanta@gmail.com
+
+## 🛟 Support
+
+For support, email robertocarlos.toapanta@gmail.com or join our Discord channel.
+
+## 📄 License
+
+[MIT](https://opensource.org/licenses/MIT)
+
+## 👥 Authors
+
+- [@rotoapanta](https://github.com/rotoapanta)
+
+## 📜 Changelog
+
+This project follows Keep a Changelog and Semantic Versioning.
+
+[Unreleased]
+- 
+
+- 1.0.0 – 2025-09-23
+  - Stable release: step progress ("Step X/Y"), multi-platform connection guide, simplified suggestions, and reorganized README.
+
+- 0.3.0 – 2025-09-23
+  - Pre-release with "Connect a new device" guide and iOS integration.
+
+- 0.1.0 – 2025-09-23
+  - Initial version of the script.
+
+## ℹ️ More information
+
+Useful links:
+- ZeroTier Central: https://my.zerotier.com
+- ZeroTier downloads: https://www.zerotier.com/download/
+- CLI documentation: https://docs.zerotier.com/zerotier/cli
+
+## 🔗 Links
+
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/roberto-carlos-toapanta-g/)
+
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/rotoapanta)

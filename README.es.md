@@ -32,6 +32,30 @@ Un script de Python que automatiza el proceso de transcribir archivos de audio a
 
 -   [Docker](https://www.docker.com/)
 
+## 🗂️ Estructura del proyecto
+
+```
+audio-transcriber-project/
+├── .gitignore
+├── Dockerfile
+├── LICENSE
+├── README.es.md
+├── README.md
+├── requirements.txt
+├── reunion_micro (Copiar).tsv
+├── reunion_micro.mp4
+├── transcriber.py
+├── transcripciones/
+│   ├── 2025-11-19/
+│   ├── 2025-11-20/
+│   └── 2025-11-21/
+└── whisper_env/
+    ├── bin/
+    ├── include/
+    ├── lib/
+    ├── pyvenv.cfg
+    └── share/
+```
 
 ## 🚀 Despliegue
 
@@ -100,3 +124,47 @@ docker run --rm \
 4.  **Transcribe:** Ejecuta la transcripción.
 5.  **Guarda el Resultado:** El archivo `.txt` resultante se guarda en el directorio de salida.
 
+## 💬 Comentarios
+
+Si tienes comentarios o sugerencias, contáctanos en robertocarlos.toapanta@gmail.com
+
+## 🛟 Soporte
+
+Para soporte, escribe a robertocarlos.toapanta@gmail.com o únete a nuestro canal de Discord.
+
+## 📄 Licencia
+
+[MIT](https://opensource.org/licenses/MIT)
+
+## 👥 Autores
+
+- [@rotoapanta](https://github.com/rotoapanta)
+
+## 📜 Registro de cambios
+
+Este proyecto sigue el formato Keep a Changelog y Semantic Versioning.
+
+[Unreleased]
+- 
+
+- 1.0.0 – 2025-09-23
+  - Lanzamiento estable: progreso “Paso X/Y”, guía multi-plataforma, sugerencias simplificadas y README reorganizado.
+
+- 0.3.0 – 2025-09-23
+  - Prelanzamiento con guía “Conectar un nuevo dispositivo” e integración iOS.
+
+- 0.1.0 – 2025-09-23
+  - Versión inicial del script.
+
+## ℹ️ Más Información
+
+Enlaces útiles:
+- ZeroTier Central: https://my.zerotier.com
+- Descargas ZeroTier: https://www.zerotier.com/download/
+- Documentación CLI: https://docs.zerotier.com/zerotier/cli
+
+## 🔗 Enlaces
+
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/roberto-carlos-toapanta-g/)
+
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/rotoapanta)
