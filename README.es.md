@@ -32,6 +32,7 @@ Un script de Python que automatiza el proceso de transcribir archivos de audio a
 
 -   [Docker](https://www.docker.com/)
 
+
 ## 🚀 Despliegue
 
 El proceso de despliegue se realiza en dos pasos principales: construir la imagen de Docker y ejecutar el contenedor.
@@ -99,16 +100,3 @@ docker run --rm \
 4.  **Transcribe:** Ejecuta la transcripción.
 5.  **Guarda el Resultado:** El archivo `.txt` resultante se guarda en el directorio de salida.
 
-## 🗂️ Estructura del proyecto
-
-```
-.
-├── .gitignore          # Archivos a ignorar por Git
-├── Dockerfile          # Instrucciones para construir la imagen de Docker
-├── LICENSE             # Licencia del Proyecto
-├── README.md           # Este archivo (Inglés)
-├── README.es.md        # Readme en Español
-├── requirements.txt    # Dependencias de Python
-├── transcriber.py      # El script principal de transcripción
-└── transcripciones/    # Directorio donde se guardan las transcripciones
-```

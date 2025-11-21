@@ -32,6 +32,20 @@ A Python script that automates the process of transcribing audio files to text u
 
 -   [Docker](https://www.docker.com/)
 
+## 🗂️ Project structure
+
+```
+.
+├── .gitignore          # Files to be ignored by Git
+├── Dockerfile          # Instructions to build the Docker image
+├── LICENSE             # Project License
+├── README.md           # This file (English)
+├── README.es.md        # Spanish Readme
+├── requirements.txt    # Python dependencies
+├── transcriber.py      # The main transcription script
+└── transcripciones/    # Directory where transcriptions are saved
+```
+
 ## 🚀 Deployment
 
 The deployment process is done in two main steps: building the Docker image and running the container.
@@ -99,16 +113,3 @@ docker run --rm \
 4.  **Transcribes:** Runs the transcription.
 5.  **Saves Result:** The resulting `.txt` file is saved in the output directory.
 
-## 🗂️ Project structure
-
-```
-.
-├── .gitignore          # Files to be ignored by Git
-├── Dockerfile          # Instructions to build the Docker image
-├── LICENSE             # Project License
-├── README.md           # This file (English)
-├── README.es.md        # Spanish Readme
-├── requirements.txt    # Python dependencies
-├── transcriber.py      # The main transcription script
-└── transcripciones/    # Directory where transcriptions are saved
-```
