@@ -1,0 +1,20 @@
+# Entorno virtual
+whisper_env/
+
+# Transcripciones
+transcripciones/
+
+# Archivos de audio y video
+*.mp3
+*.wav
+*.m4a
+*.ogg
+*.aac
+*.mp4
+
+# Archivos de transcripción (excepto los que están en la carpeta de transcripciones)
+*.txt
+*.vtt
+*.srt
+*.tsv
+*.json
