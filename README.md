@@ -42,11 +42,11 @@ audio-transcriber-project/
 ├── README.es.md
 ├── README.md
 ├── requirements.txt
-├── reunion_micro (Copiar).tsv
-├── reunion_micro.mp4
 ├── transcriber.py
-├── transcripciones/
-│   └── 2025-11-21/
+├── audio_files/          # Place your audio/video files here
+│   └── example.mp4
+└── transcripciones/      # Output directory for transcriptions
+    └── 2025-11-21/
 ```
 
 ## 🚀 Deployment
@@ -81,12 +81,12 @@ docker run --rm \
   --cpus="1.5" --memory="4g" \
   -v "$(pwd):/app" \
   whisper-transcriber \
-  -i "reunion_micro.mp4" \
+  -i "audio_files/example.mp4" \
   -m "base" \
   --device "cpu"
 ```
 
-*Note: Adjust `--cpus` and `--memory` based on your system's hardware. Make sure the input file (e.g., `reunion_micro.mp4`) exists in your project directory.*
+*Note: Adjust `--cpus` and `--memory` based on your system's hardware. Place your audio file (e.g., `example.mp4`) inside the `audio_files` directory before running the command.*
 
 ### Options
 
@@ -100,12 +100,12 @@ docker run --rm \
 
 -   **Basic usage (specifying only the input file):**
     ```bash
-    python transcriber.py -i meeting.mp4
+    python transcriber.py -i audio_files/meeting.mp4
     ```
 
 -   **Specifying a model and language:**
     ```bash
-    python transcriber.py -i ./audios/english_podcast.mp3 -m large-v3 -l en
+    python transcriber.py -i ./audio_files/english_podcast.mp3 -m large-v3 -l en
     ```
 
 ### Script Workflow
