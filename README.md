@@ -35,10 +35,6 @@ A Python script that automates the process of transcribing audio files to text u
 
 ## 🔧 Installation
 
-There are two ways to set up this project: using Docker (recommended for portability) or setting up a local Python environment.
-
-### With Docker (Recommended)
-
 1.  **Install [Docker](https://docs.docker.com/get-docker/).**
 
 2.  **Clone the repository:**
@@ -48,65 +44,37 @@ There are two ways to set up this project: using Docker (recommended for portabi
     ```
 
 3.  **Build the Docker image:**
+    This command packages the application into a portable image.
     ```bash
     docker build -t whisper-transcriber .
     ```
 
-### Local Python Environment
-
-1.  **Clone the repository and navigate into it.**
-
-2.  **Create and activate a virtual environment:**
-    ```bash
-    python3 -m venv whisper_env
-    source whisper_env/bin/activate
-    ```
-
-3.  **Install the required dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
 ## Usage
 
-### With Docker
+To run a transcription, use the `docker run` command. You must map your project directory into the container so it can access your audio files.
 
-To transcribe a file using Docker, you need to mount your local directories for input and output into the container.
+-   `-v $(pwd):/app`: This maps your current project directory to the `/app` directory inside the container.
 
--   `-v /path/to/your/audio:/app/audio`: Mounts your local audio directory to `/app/audio` inside the container.
--   `-v /path/to/your/transcriptions:/app/transcriptions`: Mounts your local transcriptions directory to `/app/transcriptions` inside the container.
+#### Resource Limiting (Important)
 
-#### Resource Limiting (Important for preventing system freezes)
+To prevent your computer from freezing, it is crucial to limit the resources Docker can use.
 
-It is highly recommended to limit the resources Docker can use, especially with larger models.
+-   `--cpus="1.5"`: Limits the container to 1.5 CPU cores.
+-   `--memory="4g"`: Limits the container to 4GB of RAM.
 
--   `--cpus="1.5"`: Limits the container to use at most 1.5 CPU cores.
--   `--memory="4g"`: Limits the container to use at most 4GB of RAM.
+### Example Command
 
 ```bash
 docker run --rm \
-  --cpus="1.5" \
-  --memory="4g" \
-  -v $(pwd)/audio_files:/app/audio \
-  -v $(pwd)/transcripciones:/app/transcriptions \
+  --cpus="1.5" --memory="4g" \
+  -v "$(pwd):/app" \
   whisper-transcriber \
-  -i /app/audio/your_audio.mp3 \
-  -m base \
-  -l en \
-  --device cpu
+  -i "reunion_micro.mp4" \
+  -m "base" \
+  --device "cpu"
 ```
 
-*Note: Adjust the `--cpus` and `--memory` values based on your system's hardware. Replace `$(pwd)/audio_files` and `$(pwd)/transcripciones` with the actual paths to your audio and output directories.*
-
-### With Python
-
-Run the script from the command line using flags to specify the input file and other options.
-
-### Syntax
-
-```bash
-python transcriber.py -i <audio_file> [-m <model>] [-l <language>] [-o <output_dir>]
-```
+*Note: Adjust `--cpus` and `--memory` based on your system's hardware. Make sure the input file (e.g., `reunion_micro.mp4`) exists in your project directory.*
 
 ### Options
 

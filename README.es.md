@@ -35,10 +35,6 @@ Un script de Python que automatiza el proceso de transcribir archivos de audio a
 
 ## 🔧 Instalación
 
-Hay dos formas de configurar este proyecto: usando Docker (recomendado por su portabilidad) o configurando un entorno de Python local.
-
-### Con Docker (Recomendado)
-
 1.  **Instala [Docker](https://docs.docker.com/get-docker/).**
 
 2.  **Clona el repositorio:**
@@ -48,65 +44,37 @@ Hay dos formas de configurar este proyecto: usando Docker (recomendado por su po
     ```
 
 3.  **Construye la imagen de Docker:**
+    Este comando empaqueta la aplicación en una imagen portable.
     ```bash
     docker build -t whisper-transcriber .
     ```
 
-### Entorno Local de Python
-
-1.  **Clona el repositorio y navega hacia él.**
-
-2.  **Crea y activa un entorno virtual:**
-    ```bash
-    python3 -m venv whisper_env
-    source whisper_env/bin/activate
-    ```
-
-3.  **Instala las dependencias necesarias:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
 ## Uso
 
-### Con Docker
+Para realizar una transcripción, usa el comando `docker run`. Debes mapear el directorio de tu proyecto al contenedor para que pueda acceder a tus archivos de audio.
 
-Para transcribir un archivo usando Docker, necesitas montar tus directorios locales de entrada y salida en el contenedor.
+-   `-v $(pwd):/app`: Esto mapea tu directorio de proyecto actual a la carpeta `/app` dentro del contenedor.
 
--   `-v /ruta/a/tus/audios:/app/audio`: Monta tu directorio local de audios en `/app/audio` dentro del contenedor.
--   `-v /ruta/a/tus/transcripciones:/app/transcripciones`: Monta tu directorio local de transcripciones en `/app/transcripciones` dentro del contenedor.
+#### Limitación de Recursos (Importante)
 
-#### Limitación de Recursos (Importante para evitar que el sistema se congele)
+Para evitar que tu computador se congele, es crucial limitar los recursos que Docker puede usar.
 
-Es muy recomendable limitar los recursos que Docker puede usar, especialmente con los modelos más grandes.
+-   `--cpus="1.5"`: Limita el contenedor a 1.5 núcleos de CPU.
+-   `--memory="4g"`: Limita el contenedor a 4GB de RAM.
 
--   `--cpus="1.5"`: Limita el contenedor a usar como máximo 1.5 núcleos de CPU.
--   `--memory="4g"`: Limita el contenedor a usar como máximo 4GB de RAM.
+### Comando de Ejemplo
 
 ```bash
 docker run --rm \
-  --cpus="1.5" \
-  --memory="4g" \
-  -v $(pwd)/archivos_de_audio:/app/audio \
-  -v $(pwd)/transcripciones:/app/transcriptions \
+  --cpus="1.5" --memory="4g" \
+  -v "$(pwd):/app" \
   whisper-transcriber \
-  -i /app/audio/tu_audio.mp3 \
-  -m base \
-  -l es \
-  --device cpu
+  -i "reunion_micro.mp4" \
+  -m "base" \
+  --device "cpu"
 ```
 
-*Nota: Ajusta los valores de `--cpus` y `--memory` según el hardware de tu sistema. Reemplaza `$(pwd)/archivos_de_audio` y `$(pwd)/transcripciones` con las rutas reales a tus directorios de audio y salida.*
-
-### Con Python
-
-Ejecuta el script desde la línea de comandos usando flags para especificar el archivo de entrada y otras opciones.
-
-### Sintaxis
-
-```bash
-python transcriber.py -i <archivo_audio> [-m <modelo>] [-l <idioma>] [-o <directorio_salida>]
-```
+*Nota: Ajusta los valores de `--cpus` y `--memory` según el hardware de tu sistema. Asegúrate de que el archivo de entrada (ej. `reunion_micro.mp4`) exista en el directorio de tu proyecto.*
 
 ### Opciones
 
