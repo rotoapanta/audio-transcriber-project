@@ -15,13 +15,14 @@
     <a href="https://github.com/rotoapanta/audio-transcriber-project/fork"><img src="https://img.shields.io/github/forks/rotoapanta/audio-transcriber-project?style=social" alt="GitHub forks"></a>
 </p>
 
-A Bash script that automates the process of transcribing audio files to text using [OpenAI's Whisper](https://github.com/openai/whisper). It handles environment setup, dependency installation, and neatly organizes the output files.
+A Python script that automates the process of transcribing audio files to text using [OpenAI's Whisper](https://github.com/openai/whisper). It handles dependency installation, and neatly organizes the output files.
 
 ---
 
 ## ✨ Features
 
--   **Automatic Setup:** Creates a Python virtual environment if it doesn't exist.
+-   **Python-based:** More robust, portable, and easier to maintain.
+-   **GPU Acceleration:** Automatically uses CUDA if available for faster transcription.
 -   **Dependency Management:** Installs the required dependencies from `requirements.txt`.
 -   **Easy to Use:** Transcribe an audio file with a single command.
 -   **Flexible:** Allows specifying the audio file, Whisper model, and language.
@@ -29,17 +30,22 @@ A Bash script that automates the process of transcribing audio files to text usi
 
 ## 🚀 Prerequisites
 
--   Bash
 -   Python 3.x
--   `pip` and `venv` for Python 3.
+-   `pip`
 
 ## 🔧 Installation
 
 1.  **Clone the repository (once on GitHub) or download the files.**
 
-2.  **Grant execution permissions to the script:**
+2.  **Create and activate a virtual environment (recommended):**
     ```bash
-    chmod +x transcribir.sh
+    python3 -m venv whisper_env
+    source whisper_env/bin/activate
+    ```
+
+3.  **Install the required dependencies:**
+    ```bash
+    pip install -r requirements.txt
     ```
 
 ## Usage
@@ -49,49 +55,45 @@ Run the script from the command line using flags to specify the input file and o
 ### Syntax
 
 ```bash
-./transcribir.sh -i <audio_file> [-m <model>] [-l <language>] [-h]
+python transcriber.py -i <audio_file> [-m <model>] [-l <language>] [-o <output_dir>]
 ```
 
 ### Options
 
--   `-i <audio_file>`: **(Required)** The path to the audio or video file to be transcribed.
--   `-m <model>`: **(Optional)** The Whisper model to use. Defaults to `medium`. Other available models include `tiny`, `base`, `small`, `large`, `large-v1`, `large-v2`, `large-v3`.
--   `-l <language>`: **(Optional)** The two-letter code for the audio language. Defaults to `es` (Spanish).
--   `-h`: Displays the help message.
+-   `-i, --input <audio_file>`: **(Required)** The path to the audio or video file to be transcribed.
+-   `-m, --model <model>`: **(Optional)** The Whisper model to use. Defaults to `medium`.
+-   `-l, --language <language>`: **(Optional)** The two-letter code for the audio language. Defaults to `es` (Spanish).
+-   `-o, --output_dir <output_dir>`: **(Optional)** Directory to save the transcription. Defaults to `transcripciones/YYYY-MM-DD`.
 
 ### Examples
 
 -   **Basic usage (specifying only the input file):**
     ```bash
-    ./transcribir.sh -i meeting.mp4
+    python transcriber.py -i meeting.mp4
     ```
 
 -   **Specifying a model and language:**
     ```bash
-    ./transcribir.sh -i ./audios/english_podcast.mp3 -m large-v3 -l en
-    ```
-
--   **Displaying the help message:**
-    ```bash
-    ./transcribir.sh -h
+    python transcriber.py -i ./audios/english_podcast.mp3 -m large-v3 -l en
     ```
 
 ### Script Workflow
 
-1.  **Activate Virtual Environment:** It looks for the `whisper_env` environment and activates it. If it doesn't exist, it creates it first.
-2.  **Install Dependencies:** Installs `openai-whisper` and other dependencies from `requirements.txt`.
-3.  **Create Output Directory:** Creates a folder for the current day's transcriptions if it doesn't exist (e.g., `transcripciones/2025-11-21/`).
-4.  **Transcribe:** Runs `whisper` with the provided arguments.
-5.  **Save Result:** The resulting `.txt` file is saved in the output directory.
+1.  **Parses Arguments:** Reads the command-line arguments.
+2.  **Sets Up Output Directory:** Creates the output directory if it doesn't exist.
+3.  **Loads Model:** Loads the specified Whisper model, using GPU if available.
+4.  **Transcribes:** Runs the transcription.
+5.  **Saves Result:** The resulting `.txt` file is saved in the output directory.
 
 ## 📂 Project Structure
 
 ```
 .
 ├── .gitignore          # Files to be ignored by Git
+├── LICENSE             # Project License
 ├── README.md           # This file (English)
 ├── README.es.md        # Spanish Readme
 ├── requirements.txt    # Python dependencies
-├── transcribir.sh      # The main transcription script
+├── transcriber.py      # The main transcription script
 └── transcripciones/    # Directory where transcriptions are saved
 ```
