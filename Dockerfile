@@ -4,6 +4,9 @@ FROM python:3.12-slim
 # Set the working directory in the container
 WORKDIR /app
 
+# Install ffmpeg, a dependency for Whisper
+RUN apt-get update && apt-get install -y ffmpeg
+
 # Copy the requirements file into the container at /app
 COPY requirements.txt .
 
