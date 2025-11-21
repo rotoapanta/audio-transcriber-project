@@ -44,30 +44,36 @@ Un script de Bash que automatiza el proceso de transcribir archivos de audio a t
 
 ## Uso
 
-Ejecuta el script desde la línea de comandos, proporcionando la ruta al archivo de audio que deseas transcribir. Opcionalmente, puedes especificar el modelo de Whisper y el idioma.
+Ejecuta el script desde la línea de comandos usando flags para especificar el archivo de entrada y otras opciones.
 
 ### Sintaxis
 
 ```bash
-./transcribir.sh ruta/al/audio.[mp3|wav|m4a|etc] [modelo] [idioma]
+./transcribir.sh -i <archivo_audio> [-m <modelo>] [-l <idioma>] [-h]
 ```
 
-### Argumentos
+### Opciones
 
--   `ruta/al/audio`: **(Obligatorio)** La ruta al archivo de audio o video a transcribir.
--   `[modelo]`: **(Opcional)** El modelo de Whisper a utilizar. Por defecto es `medium`. Otros modelos disponibles son `tiny`, `base`, `small`, `large`, `large-v1`, `large-v2`, `large-v3`.
--   `[idioma]`: **(Opcional)** El código de dos letras para el idioma del audio. Por defecto es `es` (español).
+-   `-i <archivo_audio>`: **(Obligatorio)** La ruta al archivo de audio o video a transcribir.
+-   `-m <modelo>`: **(Opcional)** El modelo de Whisper a utilizar. Por defecto es `medium`. Otros modelos disponibles son `tiny`, `base`, `small`, `large`, `large-v1`, `large-v2`, `large-v3`.
+-   `-l <idioma>`: **(Opcional)** El código de dos letras para el idioma del audio. Por defecto es `es` (español).
+-   `-h`: Muestra el mensaje de ayuda.
 
 ### Ejemplos
 
--   **Uso básico (modelo por defecto `medium`, idioma `español`):**
+-   **Uso básico (especificando solo el archivo de entrada):**
     ```bash
-    ./transcribir.sh reunion.mp4
+    ./transcribir.sh -i reunion.mp4
     ```
 
 -   **Especificando un modelo e idioma:**
     ```bash
-    ./transcribir.sh ./audios/podcast_ingles.mp3 large-v3 en
+    ./transcribir.sh -i ./audios/podcast_ingles.mp3 -m large-v3 -l en
+    ```
+
+-   **Mostrar el mensaje de ayuda:**
+    ```bash
+    ./transcribir.sh -h
     ```
 
 ### Flujo de Trabajo del Script

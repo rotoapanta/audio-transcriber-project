@@ -29,20 +29,55 @@ LANG="es"
 # PROCESAMIENTO DE ARGUMENTOS DE LÍNEA DE COMANDOS
 # ------------------------------------------------------------------------------
 
-# Si no se proporciona ningún argumento, muestra el modo de uso y sale.
-if [ $# -eq 0 ]; then
-    echo "Uso: $0 archivo_audio.(mp3|wav|m4a|ogg|aac|mp4) [modelo] [idioma]"
-    echo "  Ejemplo: $0 mi_audio.mp4 large-v2 es"
+# Función para mostrar el modo de uso del script.
+usage() {
+    echo "Uso: $0 -i <archivo_audio> [-m <modelo>] [-l <idioma>] [-h]"
+    echo "  -i <archivo_audio>: Archivo de audio a transcribir (obligatorio)."
+    echo "  -m <modelo>:          Modelo de Whisper a usar (opcional, por defecto: $MODEL)."
+    echo "  -l <idioma>:          Idioma del audio (opcional, por defecto: $LANG)."
+    echo "  -h:                   Muestra este mensaje de ayuda."
     exit 1
+}
+
+# Si no se proporcionan argumentos, muestra la ayuda.
+if [ $# -eq 0 ]; then
+    usage
 fi
 
-# Asigna los argumentos a variables.
-# El primer argumento es el archivo de audio.
-AUDIO="$1"
-# El segundo argumento (opcional) es el modelo. Si no se proporciona, usa el valor por defecto.
-MODEL="${2:-$MODEL}"
-# El tercer argumento (opcional) es el idioma. Si no se proporciona, usa el valor por defecto.
-LANG="${3:-$LANG}"
+AUDIO=""
+
+# Procesa las opciones de la línea de comandos con getopts.
+while getopts ":i:m:l:h" opt; do
+  case ${opt} in
+    i)
+      AUDIO=$OPTARG
+      ;;
+    m)
+      MODEL=$OPTARG
+      ;;
+    l)
+      LANG=$OPTARG
+      ;;
+    h)
+      usage
+      ;;
+    \?)
+      echo "Opción inválida: -$OPTARG" 1>&2
+      usage
+      ;;
+    :)
+      echo "La opción -$OPTARG requiere un argumento." 1>&2
+      usage
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
+# Valida que se haya proporcionado un archivo de entrada.
+if [ -z "$AUDIO" ]; then
+    echo "❌ Error: El archivo de entrada es obligatorio (-i)."
+    usage
+fi
 
 # Verifica si el archivo de audio realmente existe.
 if [ ! -f "$AUDIO" ]; then

@@ -44,30 +44,36 @@ A Bash script that automates the process of transcribing audio files to text usi
 
 ## Usage
 
-Run the script from the command line, providing the path to the audio file you want to transcribe. You can also optionally specify the Whisper model and language.
+Run the script from the command line using flags to specify the input file and other options.
 
 ### Syntax
 
 ```bash
-./transcribir.sh path/to/audio.[mp3|wav|m4a|etc] [model] [language]
+./transcribir.sh -i <audio_file> [-m <model>] [-l <language>] [-h]
 ```
 
-### Arguments
+### Options
 
--   `path/to/audio`: **(Required)** The path to the audio or video file to be transcribed.
--   `[model]`: **(Optional)** The Whisper model to use. Defaults to `medium`. Other available models include `tiny`, `base`, `small`, `large`, `large-v1`, `large-v2`, `large-v3`.
--   `[language]`: **(Optional)** The two-letter code for the audio language. Defaults to `es` (Spanish).
+-   `-i <audio_file>`: **(Required)** The path to the audio or video file to be transcribed.
+-   `-m <model>`: **(Optional)** The Whisper model to use. Defaults to `medium`. Other available models include `tiny`, `base`, `small`, `large`, `large-v1`, `large-v2`, `large-v3`.
+-   `-l <language>`: **(Optional)** The two-letter code for the audio language. Defaults to `es` (Spanish).
+-   `-h`: Displays the help message.
 
 ### Examples
 
--   **Basic usage (default model `medium`, language `Spanish`):**
+-   **Basic usage (specifying only the input file):**
     ```bash
-    ./transcribir.sh meeting.mp4
+    ./transcribir.sh -i meeting.mp4
     ```
 
 -   **Specifying a model and language:**
     ```bash
-    ./transcribir.sh ./audios/english_podcast.mp3 large-v3 en
+    ./transcribir.sh -i ./audios/english_podcast.mp3 -m large-v3 -l en
+    ```
+
+-   **Displaying the help message:**
+    ```bash
+    ./transcribir.sh -h
     ```
 
 ### Script Workflow
