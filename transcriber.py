@@ -48,7 +48,7 @@ def main():
     # --- Input Validation ---
     input_path = Path(args.input)
     if not input_path.is_file():
-        print(f"❌ Error: The file '{args.input}' does not exist.")
+        print(f"Error: The file '{args.input}' does not exist.")
         return
 
     # --- Output Directory Setup ---
@@ -65,10 +65,10 @@ def main():
     print("\n" + "-" * 50)
     print("🎧 Whisper Audio Transcriber")
     print("-" * 50)
-    print(f"📝 Transcribing: {input_path.name}")
-    print(f"🧠 Model: {args.model}")
-    print(f"🗣 Language: {args.language}")
-    print(f"📂 Output directory: {output_path}")
+    print(f"Transcribing: {input_path.name}")
+    print(f"Model: {args.model}")
+    print(f"Language: {args.language}")
+    print(f"Output directory: {output_path}")
     print("-" * 50 + "\n")
 
     start_time = time.time()
@@ -98,13 +98,13 @@ def main():
         # --- Completion Message ---
         print("\a") # Bell sound
         print("-" * 50)
-        print("🎉 TRANSCRIPTION COMPLETE")
-        print(f"📄 File saved to: {output_filename}")
-        print(f"⏱ Total duration: {duration:.2f} seconds")
+        print("TRANSCRIPTION COMPLETE")
+        print(f"File saved to: {output_filename}")
+        print(f"Total duration: {duration:.2f} seconds")
         print("-" * 50)
 
     except Exception as e:
-        print(f"❌ An error occurred: {e}")
+        print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     main()
